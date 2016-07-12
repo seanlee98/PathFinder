@@ -4,22 +4,22 @@
     api-level="23"
     density="xxhdpi"
     format="7"
-    timestamp="9356671554454"
+    timestamp="9494006514864"
     token="-5648605537400057583"
     verifier="COMPATIBLE" >
 
     <task
         name="javac"
-        duration="344" />
+        duration="358" />
     <task
         name="instant-run-dex"
-        duration="1430" />
+        duration="1598" />
     <task
         name="instant-run-transform"
-        duration="61" />
+        duration="130" />
     <task
         name="verifier"
-        duration="6" />
+        duration="9" />
 
     <artifact
         location="C:\Users\Jose\Desktop\ECE\ECE155\Lab4updated\app\build\intermediates\reload-dex\debug\classes.dex"
@@ -65,6 +65,13 @@
     </build>
     <build
         timestamp="9356671554454"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="C:\Users\Jose\Desktop\ECE\ECE155\Lab4updated\app\build\intermediates\builds\debug\9356671554454\classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="9494006514864"
         verifier="COMPATIBLE" >
         <artifact
             location="C:\Users\Jose\Desktop\ECE\ECE155\Lab4updated\app\build\intermediates\reload-dex\debug\classes.dex"

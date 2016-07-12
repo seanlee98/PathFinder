@@ -20,11 +20,8 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/lab4_205_01/uwaterloo/ca/lab4_205_01/StepDetector.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/lab4_205_01/uwaterloo/ca/lab4_205_01/StepDetector.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/lab4_205_01/uwaterloo/ca/lab4_205_01/Lab4_205_01.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/lab4_205_01/uwaterloo/ca/lab4_205_01/Lab4_205_01.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/lab4_205_01/uwaterloo/ca/lab4_205_01/StepDetector.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/lab4_205_01/uwaterloo/ca/lab4_205_01/StepDetector.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_8/classes.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_8/classes.dex" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/lab4_205_01/uwaterloo/ca/lab4_205_01/Lab4_205_01.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/lab4_205_01/uwaterloo/ca/lab4_205_01/Lab4_205_01.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/lab4_205_01/uwaterloo/ca/lab4_205_01/StepDetector.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/lab4_205_01/uwaterloo/ca/lab4_205_01/StepDetector.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_8/lab4_205_01/uwaterloo/ca/lab4_205_01/Lab4_205_01.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_8/lab4_205_01/uwaterloo/ca/lab4_205_01/Lab4_205_01.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_8/lab4_205_01/uwaterloo/ca/lab4_205_01/StepDetector.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_8/lab4_205_01/uwaterloo/ca/lab4_205_01/StepDetector.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/restart-dex/debug/build-info.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/restart-dex/debug/build-info.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/lab4_205_01/uwaterloo/ca/lab4_205_01/Lab4_205_01.java" afterPath="$PROJECT_DIR$/app/src/main/java/lab4_205_01/uwaterloo/ca/lab4_205_01/Lab4_205_01.java" />
@@ -98,11 +95,11 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/lab4_205_01/uwaterloo/ca/lab4_205_01/Lab4_205_01.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.40590405">
-              <caret line="235" column="0" selection-start-line="235" selection-start-column="0" selection-end-line="235" selection-end-column="0" />
+              <caret line="220" column="86" selection-start-line="220" selection-start-column="86" selection-end-line="220" selection-end-column="86" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#9744#9745#0" expanded="true" />
-                <element signature="e#9784#9785#0" expanded="true" />
+                <element signature="e#9691#9692#0" expanded="true" />
+                <element signature="e#9731#9732#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -2250,7 +2247,13 @@
       <option name="project" value="LOCAL" />
       <updated>1468352338839</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003">
+      <created>1468353062069</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1468353062069</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2263,7 +2266,7 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905483" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32905483" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32905483" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2337,8 +2340,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#9744#9745#0" expanded="true" />
-            <element signature="e#9784#9785#0" expanded="true" />
+            <element signature="e#9691#9692#0" expanded="true" />
+            <element signature="e#9731#9732#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2412,11 +2415,11 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/lab4_205_01/uwaterloo/ca/lab4_205_01/Lab4_205_01.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.40590405">
-          <caret line="235" column="0" selection-start-line="235" selection-start-column="0" selection-end-line="235" selection-end-column="0" />
+          <caret line="220" column="86" selection-start-line="220" selection-start-column="86" selection-end-line="220" selection-end-column="86" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#9744#9745#0" expanded="true" />
-            <element signature="e#9784#9785#0" expanded="true" />
+            <element signature="e#9691#9692#0" expanded="true" />
+            <element signature="e#9731#9732#0" expanded="true" />
           </folding>
         </state>
       </provider>
