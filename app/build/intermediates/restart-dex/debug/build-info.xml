@@ -4,30 +4,48 @@
     api-level="23"
     density="xxhdpi"
     format="7"
-    timestamp="7085780027754"
+    timestamp="8615509121194"
     token="-5648605537400057583" >
 
     <task
         name="javac"
-        duration="1076" />
+        duration="0" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="813" />
+        duration="0" />
     <task
         name="verifier"
-        duration="294" />
+        duration="0" />
 
-    <artifact
-        location="C:\Users\Jose\Desktop\ECE\ECE155\Lab4updated\app\build\outputs\apk\app-debug.apk"
-        type="MAIN" />
-
-    <build timestamp="7085780027754" >
+    <build timestamp="8401227310768" >
         <artifact
             location="C:\Users\Jose\Desktop\ECE\ECE155\Lab4updated\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
     </build>
+    <build
+        timestamp="8522069826308"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="C:\Users\Jose\Desktop\ECE\ECE155\Lab4updated\app\build\intermediates\builds\debug\8522069826308\classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="8575053640929"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="C:\Users\Jose\Desktop\ECE\ECE155\Lab4updated\app\build\intermediates\builds\debug\8575053640929\classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="8600730341331"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="C:\Users\Jose\Desktop\ECE\ECE155\Lab4updated\app\build\intermediates\builds\debug\8600730341331\classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build timestamp="8615509121194" />
 
 </instant-run>
