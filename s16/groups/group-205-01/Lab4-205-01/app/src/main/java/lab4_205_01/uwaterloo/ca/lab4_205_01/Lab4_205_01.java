@@ -53,12 +53,12 @@ class StepDetector implements SensorEventListener, PositionListener {
         instructionsViewE = instructionsE;
         instructionsViewN = instructionsN;
 
-        user = new PointF(3, 4);
+        user = new PointF(4, 4);
         originChanged(mapView, user);
 
         //start and end points
-        origin = new PointF(3, 4);
-        destination = new PointF(16, 4);
+        origin = new PointF(4, 4);
+        destination = new PointF(18, 4);
         destinationChanged(mapView, destination);
         mapView.setOriginPoint(origin);
 
@@ -209,12 +209,12 @@ class StepDetector implements SensorEventListener, PositionListener {
         List<PointF> userPath = new ArrayList<>();
         List<InterceptPoint> interceptPoints;
 
-        userPath.add(start);
+        userPath.add(0,start);
         PointF currentPoint = new PointF(start.x,start.y);
         PointF prevPoint = new PointF(start.x,start.y);
         //Algorithm for determining path
         interceptPoints = mapView.map.calculateIntersections(start, end);
-        int counter=0;
+       int counter=1;
         while(!interceptPoints.isEmpty()){
             prevPoint.set(currentPoint.x,currentPoint.y);
             currentPoint.set(currentPoint.x+1,currentPoint.y);
@@ -225,17 +225,17 @@ class StepDetector implements SensorEventListener, PositionListener {
                     currentPoint.set(prevPoint.x,prevPoint.y);
                 }
             }
-            userPath.add(currentPoint);
+            System.out.println("x: "+currentPoint.x+" y: "+currentPoint.y);
+            userPath.add(counter,currentPoint);
             interceptPoints = mapView.map.calculateIntersections(currentPoint,end);
             counter++;
-           /// if(counter >50){
-          //      break;
-          //  }
+            if(counter >50){
+               break;
+            }
         }
 
 
-        userPath.add(end);
-
+        userPath.add(counter,end);
 
 
         //Generate instructions
@@ -259,6 +259,8 @@ class StepDetector implements SensorEventListener, PositionListener {
         }else{
             instructionsViewE.setText("");
         }
+
+        System.out.println(userPath.size());
         return userPath;
     }
 
@@ -286,10 +288,10 @@ public class Lab4_205_01 extends AppCompatActivity {
         setContentView(R.layout.activity_lab4_205_01);
 
         //Map View
-        mapView = new MapView(getApplicationContext(), 1000, 1000, 50, 50);
+        mapView = new MapView(getApplicationContext(), 1000, 1000,35, 35);
         registerForContextMenu(findViewById(R.id.scroll));
 
-        NavigationalMap map = MapLoader.loadMap(getExternalFilesDir(null), "Lab-room-peninsula.svg");
+        NavigationalMap map = MapLoader.loadMap(getExternalFilesDir(null), "E2-3344.svg");
         mapView.setMap(map);
 
 
