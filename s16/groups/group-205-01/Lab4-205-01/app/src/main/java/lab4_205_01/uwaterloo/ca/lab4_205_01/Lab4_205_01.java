@@ -182,7 +182,7 @@ class StepDetector implements SensorEventListener, PositionListener {
                     }
 
                     if(!mapView.map.calculateIntersections(prevuser,user).isEmpty()){
-                        user = prevuser;
+                        user.set(prevuser.x,prevuser.y);
                         step--;
                         stepsN -= stepNCalculated;
                         stepsE -= stepECalculated;
@@ -207,16 +207,31 @@ class StepDetector implements SensorEventListener, PositionListener {
     //Function for generating a userpath given start and end points
     public List<PointF> userPath(PointF start, PointF end) {
         List<PointF> userPath = new ArrayList<>();
-        List<InterceptPoint> interceptPoints = new ArrayList<>();
-        interceptPoints = mapView.map.calculateIntersections(start, end);
-        for (InterceptPoint i : interceptPoints) {
-            //System.out.println("x:" + (i.getPoint().x) + " y: " + (i.getPoint().y));
-        }
-
+        List<InterceptPoint> interceptPoints;
 
         userPath.add(start);
-        PointF currentPoint = start;
+        PointF currentPoint = new PointF(start.x,start.y);
+        PointF prevPoint = new PointF(start.x,start.y);
         //Algorithm for determining path
+        interceptPoints = mapView.map.calculateIntersections(start, end);
+        int counter=0;
+        while(!interceptPoints.isEmpty()){
+            prevPoint.set(currentPoint.x,currentPoint.y);
+            currentPoint.set(currentPoint.x+1,currentPoint.y);
+            if(!mapView.map.calculateIntersections(prevPoint,currentPoint).isEmpty()){
+                currentPoint.set(prevPoint.x,prevPoint.y);
+                currentPoint.set(currentPoint.x,currentPoint.y+1);
+                if(!mapView.map.calculateIntersections(prevPoint,currentPoint).isEmpty()){
+                    currentPoint.set(prevPoint.x,prevPoint.y);
+                }
+            }
+            userPath.add(currentPoint);
+            interceptPoints = mapView.map.calculateIntersections(currentPoint,end);
+            counter++;
+           /// if(counter >50){
+          //      break;
+          //  }
+        }
 
 
         userPath.add(end);
