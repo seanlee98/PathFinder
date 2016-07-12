@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.uwaterloo.sensortoy.mapper.InterceptPoint;
 import ca.uwaterloo.sensortoy.mapper.MapLoader;
 import ca.uwaterloo.sensortoy.mapper.MapView;
 import ca.uwaterloo.sensortoy.mapper.NavigationalMap;
@@ -23,7 +24,7 @@ import ca.uwaterloo.sensortoy.mapper.PositionListener;
 
 
 //class that implements the step detection and counter
-class StepDetector implements SensorEventListener,PositionListener {
+class StepDetector implements SensorEventListener, PositionListener {
 
     public float[] R = new float[9];
     public float[] I = new float[9];
@@ -35,33 +36,35 @@ class StepDetector implements SensorEventListener,PositionListener {
     public int step;
     public double stepNCalculated, stepECalculated, stepsN, stepsE;
     public double azimuth;
-    public TextView stepView, northView, eastView, azimuthView;
+    public TextView stepView, northView, eastView, azimuthView, instructionsViewE,instructionsViewN;
     public static double smoothedAccel = 0.0, previousSmoothedAccel = 0.0;
 
 
-    PointF origin,user,destination;
+    PointF origin, user, destination,prevuser;
     List<PointF> userPath;
     MapView mapView;
 
-    public StepDetector(TextView steps, TextView north, TextView east, TextView azimuth,MapView mv) {
+    public StepDetector(TextView steps, TextView north, TextView east, TextView azimuth, MapView mv, TextView instructionsE,TextView instructionsN) {
         stepView = steps;
         northView = north;
         eastView = east;
         azimuthView = azimuth;
         mapView = mv;
+        instructionsViewE = instructionsE;
+        instructionsViewN = instructionsN;
 
-        user = new PointF(5,8);
-        originChanged(mapView,user);
+        user = new PointF(3, 4);
+        originChanged(mapView, user);
 
         //start and end points
-        origin = new PointF(5,8);
-        destination = new PointF(15,13);
-        destinationChanged(mapView,destination);
+        origin = new PointF(3, 4);
+        destination = new PointF(16, 4);
+        destinationChanged(mapView, destination);
         mapView.setOriginPoint(origin);
 
         //path
         userPath = new ArrayList<>();
-        userPath = userPath(origin,destination);
+        userPath = userPath(origin, destination);
         mapView.setUserPath(userPath);
     }
 
@@ -161,11 +164,32 @@ class StepDetector implements SensorEventListener,PositionListener {
                     stepsN += stepNCalculated;
                     stepsE += stepECalculated;
                     azimuth = 0;
+
                     //update userpoint
-                    user.set((float)(user.x+stepECalculated/3),(float)(user.y-stepNCalculated/3));
-                    userPath = userPath(user,destination);
+                    prevuser = new PointF(user.x,user.y);
+                    if (Math.abs(stepNCalculated) > Math.abs(stepECalculated)) {
+                        if (stepNCalculated > 0) {
+                            user.set(user.x, user.y - 1);
+                        } else {
+                            user.set(user.x, user.y + 1);
+                        }
+                    } else {
+                        if (stepECalculated > 0) {
+                            user.set(user.x + 1, user.y);
+                        } else {
+                            user.set(user.x - 1, user.y);
+                        }
+                    }
+
+                    if(!mapView.map.calculateIntersections(prevuser,user).isEmpty()){
+                        user = prevuser;
+                        step--;
+                        stepsN -= stepNCalculated;
+                        stepsE -= stepECalculated;
+                    }
                     //update path
-                    originChanged(mapView,user);
+                    userPath = userPath(user, destination);
+                    originChanged(mapView, user);
                     mapView.setUserPath(userPath);
 
 
@@ -181,10 +205,45 @@ class StepDetector implements SensorEventListener,PositionListener {
 
 
     //Function for generating a userpath given start and end points
-    public List<PointF> userPath(PointF start,PointF end){
+    public List<PointF> userPath(PointF start, PointF end) {
         List<PointF> userPath = new ArrayList<>();
+        List<InterceptPoint> interceptPoints = new ArrayList<>();
+        interceptPoints = mapView.map.calculateIntersections(start, end);
+        for (InterceptPoint i : interceptPoints) {
+            //System.out.println("x:" + (i.getPoint().x) + " y: " + (i.getPoint().y));
+        }
+
+
         userPath.add(start);
+        PointF currentPoint = start;
+        //Algorithm for determining path
+
+
         userPath.add(end);
+
+
+
+        //Generate instructions
+        PointF currentp,nextp;
+        float Nstep,Estep;
+        currentp=userPath.get(0);
+        nextp = userPath.get(1);
+        Nstep = nextp.y-currentp.y;
+        Estep = nextp.x-currentp.x;
+        if(Nstep >0){
+            instructionsViewN.setText("Walk "+(Nstep)+" steps South");
+        }else if(Nstep<0){
+            instructionsViewN.setText("Walk "+(-Nstep)+" steps North");
+        }else{
+            instructionsViewN.setText("");
+        }
+        if(Estep <0){
+            instructionsViewE.setText("Walk "+(-Estep)+" steps West");
+        }else if (Estep >0){
+            instructionsViewE.setText("Walk "+(Estep)+" steps East");
+        }else{
+            instructionsViewE.setText("");
+        }
         return userPath;
     }
 
@@ -199,12 +258,13 @@ class StepDetector implements SensorEventListener,PositionListener {
     }
 }
 
-public class Lab4_205_01 extends AppCompatActivity{
+public class Lab4_205_01 extends AppCompatActivity {
     SensorEventListener sensorListener;
     SensorManager sensorManager;
     Sensor accelerateSensor, magneticfieldSensor, gravitySensor;
-    TextView steps, east, north, azimuth;
+    TextView steps, east, north, azimuth, instructionsE,instructionsN;
     MapView mapView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -214,9 +274,8 @@ public class Lab4_205_01 extends AppCompatActivity{
         mapView = new MapView(getApplicationContext(), 1000, 1000, 50, 50);
         registerForContextMenu(findViewById(R.id.scroll));
 
-        NavigationalMap map = MapLoader.loadMap(getExternalFilesDir(null),"Lab-room-peninsula-9.4deg.svg");
+        NavigationalMap map = MapLoader.loadMap(getExternalFilesDir(null), "Lab-room-peninsula.svg");
         mapView.setMap(map);
-
 
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.main_page);
@@ -227,12 +286,13 @@ public class Lab4_205_01 extends AppCompatActivity{
         layout.addView(mapView);
 
 
-
         //get the text view from layout
         steps = (TextView) findViewById(R.id.stepsView_Current);
         north = (TextView) findViewById(R.id.northDistance);
         east = (TextView) findViewById(R.id.eastDistance);
         azimuth = (TextView) findViewById(R.id.azimuth);
+        instructionsE = (TextView) findViewById(R.id.instructionsE);
+        instructionsN = (TextView) findViewById(R.id.instructionsN);
         //get the sensor manager
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accelerateSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
@@ -240,7 +300,7 @@ public class Lab4_205_01 extends AppCompatActivity{
         gravitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
         //set the sensoreventlistener
 
-        sensorListener = new StepDetector(steps, north, east, azimuth,mapView);
+        sensorListener = new StepDetector(steps, north, east, azimuth, mapView, instructionsE,instructionsN);
 
         //register listener
         sensorManager.registerListener(sensorListener, accelerateSensor, SensorManager.SENSOR_DELAY_FASTEST);
@@ -268,14 +328,13 @@ public class Lab4_205_01 extends AppCompatActivity{
         steps.setText("Steps:0");
         east.setText("East:0");
         north.setText("North:0");
-        sensorListener = new StepDetector(steps, north, east, azimuth,mapView);
+        sensorListener = new StepDetector(steps, north, east, azimuth, mapView, instructionsE,instructionsN);
         //register listener
         sensorManager.registerListener(sensorListener, accelerateSensor, SensorManager.SENSOR_DELAY_FASTEST);
         sensorManager.registerListener(sensorListener, magneticfieldSensor, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(sensorListener, gravitySensor, SensorManager.SENSOR_DELAY_NORMAL);
 
     }
-
 
 
 }

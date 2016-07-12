@@ -34,6 +34,16 @@
             android:layout_height="wrap_content"
             android:id="@+id/azimuth"
             android:text="Azimuth:0" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/instructionsE"
+            android:text="Walk" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/instructionsN"
+            android:text="Walk" />
         <Button
             android:id="@+id/the_button"
             android:layout_width="wrap_content"
@@ -41,6 +51,9 @@
             android:text="@string/button_text"
             android:onClick="resetSteps"
             />
-
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/compass"/>
     </LinearLayout>
 </ScrollView>

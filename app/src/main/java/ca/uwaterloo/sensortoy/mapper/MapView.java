@@ -84,7 +84,7 @@ public class MapView extends View
     private static final int START_POINT_COLOR_INDEX = 4;
     private static final int LABELlED_POINT_COLOR_INDEX = 5;
     
-    NavigationalMap map = new NavigationalMap();
+    public NavigationalMap map = new NavigationalMap();
     PointF scale;
     
     /**
