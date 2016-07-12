@@ -217,10 +217,9 @@ class StepDetector implements SensorEventListener, PositionListener {
        int counter=1;
         while(!interceptPoints.isEmpty()){
             prevPoint.set(currentPoint.x,currentPoint.y);
-            currentPoint.set(currentPoint.x+1,currentPoint.y);
+            currentPoint = new PointF(prevPoint.x+1,prevPoint.y);
             if(!mapView.map.calculateIntersections(prevPoint,currentPoint).isEmpty()){
-                currentPoint.set(prevPoint.x,prevPoint.y);
-                currentPoint.set(currentPoint.x,currentPoint.y+1);
+                currentPoint = new PointF(prevPoint.x,prevPoint.y+1);
                 if(!mapView.map.calculateIntersections(prevPoint,currentPoint).isEmpty()){
                     currentPoint.set(prevPoint.x,prevPoint.y);
                 }
