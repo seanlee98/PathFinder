@@ -36,15 +36,15 @@ class StepDetector implements SensorEventListener, PositionListener {
     public int step;
     public double stepNCalculated, stepECalculated, stepsN, stepsE;
     public double azimuth;
-    public TextView stepView, northView, eastView, azimuthView, instructionsViewE,instructionsViewN;
+    public TextView stepView, northView, eastView, azimuthView, instructionsViewE, instructionsViewN;
     public static double smoothedAccel = 0.0, previousSmoothedAccel = 0.0;
 
 
-    PointF origin, user, destination,prevuser;
+    PointF origin, user, destination, prevuser;
     List<PointF> userPath;
     MapView mapView;
 
-    public StepDetector(TextView steps, TextView north, TextView east, TextView azimuth, MapView mv, TextView instructionsE,TextView instructionsN) {
+    public StepDetector(TextView steps, TextView north, TextView east, TextView azimuth, MapView mv, TextView instructionsE, TextView instructionsN) {
         stepView = steps;
         northView = north;
         eastView = east;
@@ -166,7 +166,7 @@ class StepDetector implements SensorEventListener, PositionListener {
                     azimuth = 0;
 
                     //update userpoint
-                    prevuser = new PointF(user.x,user.y);
+                    prevuser = new PointF(user.x, user.y);
                     if (Math.abs(stepNCalculated) > Math.abs(stepECalculated)) {
                         if (stepNCalculated > 0) {
                             user.set(user.x, user.y - 1);
@@ -181,8 +181,8 @@ class StepDetector implements SensorEventListener, PositionListener {
                         }
                     }
 
-                    if(!mapView.map.calculateIntersections(prevuser,user).isEmpty()){
-                        user.set(prevuser.x,prevuser.y);
+                    if (!mapView.map.calculateIntersections(prevuser, user).isEmpty()) {
+                        user.set(prevuser.x, prevuser.y);
                         step--;
                         stepsN -= stepNCalculated;
                         stepsE -= stepECalculated;
@@ -209,53 +209,53 @@ class StepDetector implements SensorEventListener, PositionListener {
         List<PointF> userPath = new ArrayList<>();
         List<InterceptPoint> interceptPoints;
 
-        userPath.add(0,start);
-        PointF currentPoint = new PointF(start.x,start.y);
-        PointF prevPoint = new PointF(start.x,start.y);
+        userPath.add(start);
+        PointF currentPoint = new PointF(start.x, start.y);
+        PointF prevPoint = new PointF(start.x, start.y);
         //Algorithm for determining path
         interceptPoints = mapView.map.calculateIntersections(start, end);
-       int counter=1;
-        while(!interceptPoints.isEmpty()){
-            prevPoint.set(currentPoint.x,currentPoint.y);
-            currentPoint = new PointF(prevPoint.x+1,prevPoint.y);
-            if(!mapView.map.calculateIntersections(prevPoint,currentPoint).isEmpty()){
-                currentPoint = new PointF(prevPoint.x,prevPoint.y+1);
-                if(!mapView.map.calculateIntersections(prevPoint,currentPoint).isEmpty()){
-                    currentPoint.set(prevPoint.x,prevPoint.y);
+        int counter = 1;
+        while (!interceptPoints.isEmpty()) {
+            prevPoint.set(currentPoint.x, currentPoint.y);
+            currentPoint.set(prevPoint.x + 1, prevPoint.y);
+            if (!mapView.map.calculateIntersections(prevPoint, currentPoint).isEmpty()) {
+                currentPoint.set(prevPoint.x, prevPoint.y + 1);
+                if (!mapView.map.calculateIntersections(prevPoint, currentPoint).isEmpty()) {
+                    currentPoint.set(prevPoint.x, prevPoint.y);
                 }
             }
-            System.out.println("x: "+currentPoint.x+" y: "+currentPoint.y);
-            userPath.add(counter,currentPoint);
-            interceptPoints = mapView.map.calculateIntersections(currentPoint,end);
+            System.out.println("x: " + currentPoint.x + " y: " + currentPoint.y);
+            userPath.add(new PointF(currentPoint.x, currentPoint.y));
+            interceptPoints = mapView.map.calculateIntersections(currentPoint, end);
             counter++;
-            if(counter >50){
-               break;
+            if (counter > 50) {
+                break;
             }
         }
 
 
-        userPath.add(counter,end);
+        userPath.add(end);
 
 
         //Generate instructions
-        PointF currentp,nextp;
-        float Nstep,Estep;
-        currentp=userPath.get(0);
+        PointF currentp, nextp;
+        float Nstep, Estep;
+        currentp = userPath.get(0);
         nextp = userPath.get(1);
-        Nstep = nextp.y-currentp.y;
-        Estep = nextp.x-currentp.x;
-        if(Nstep >0){
-            instructionsViewN.setText("Walk "+(Nstep)+" steps South");
-        }else if(Nstep<0){
-            instructionsViewN.setText("Walk "+(-Nstep)+" steps North");
-        }else{
+        Nstep = nextp.y - currentp.y;
+        Estep = nextp.x - currentp.x;
+        if (Nstep > 0) {
+            instructionsViewN.setText("Walk " + (Nstep) + " steps South");
+        } else if (Nstep < 0) {
+            instructionsViewN.setText("Walk " + (-Nstep) + " steps North");
+        } else {
             instructionsViewN.setText("");
         }
-        if(Estep <0){
-            instructionsViewE.setText("Walk "+(-Estep)+" steps West");
-        }else if (Estep >0){
-            instructionsViewE.setText("Walk "+(Estep)+" steps East");
-        }else{
+        if (Estep < 0) {
+            instructionsViewE.setText("Walk " + (-Estep) + " steps West");
+        } else if (Estep > 0) {
+            instructionsViewE.setText("Walk " + (Estep) + " steps East");
+        } else {
             instructionsViewE.setText("");
         }
 
@@ -278,7 +278,7 @@ public class Lab4_205_01 extends AppCompatActivity {
     SensorEventListener sensorListener;
     SensorManager sensorManager;
     Sensor accelerateSensor, magneticfieldSensor, gravitySensor;
-    TextView steps, east, north, azimuth, instructionsE,instructionsN;
+    TextView steps, east, north, azimuth, instructionsE, instructionsN;
     MapView mapView;
 
     @Override
@@ -287,7 +287,7 @@ public class Lab4_205_01 extends AppCompatActivity {
         setContentView(R.layout.activity_lab4_205_01);
 
         //Map View
-        mapView = new MapView(getApplicationContext(), 1000, 1000,35, 35);
+        mapView = new MapView(getApplicationContext(), 1000, 1000, 35, 35);
         registerForContextMenu(findViewById(R.id.scroll));
 
         NavigationalMap map = MapLoader.loadMap(getExternalFilesDir(null), "E2-3344.svg");
@@ -316,7 +316,7 @@ public class Lab4_205_01 extends AppCompatActivity {
         gravitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
         //set the sensoreventlistener
 
-        sensorListener = new StepDetector(steps, north, east, azimuth, mapView, instructionsE,instructionsN);
+        sensorListener = new StepDetector(steps, north, east, azimuth, mapView, instructionsE, instructionsN);
 
         //register listener
         sensorManager.registerListener(sensorListener, accelerateSensor, SensorManager.SENSOR_DELAY_FASTEST);
@@ -344,7 +344,7 @@ public class Lab4_205_01 extends AppCompatActivity {
         steps.setText("Steps:0");
         east.setText("East:0");
         north.setText("North:0");
-        sensorListener = new StepDetector(steps, north, east, azimuth, mapView, instructionsE,instructionsN);
+        sensorListener = new StepDetector(steps, north, east, azimuth, mapView, instructionsE, instructionsN);
         //register listener
         sensorManager.registerListener(sensorListener, accelerateSensor, SensorManager.SENSOR_DELAY_FASTEST);
         sensorManager.registerListener(sensorListener, magneticfieldSensor, SensorManager.SENSOR_DELAY_NORMAL);
