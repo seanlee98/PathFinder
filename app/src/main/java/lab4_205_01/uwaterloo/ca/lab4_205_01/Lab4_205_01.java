@@ -65,6 +65,7 @@ class StepDetector implements SensorEventListener, PositionListener {
         //path
         userPath = new ArrayList<>();
         userPath = userPath(origin, destination);
+        setInstructions();
         mapView.setUserPath(userPath);
     }
 
@@ -188,10 +189,24 @@ class StepDetector implements SensorEventListener, PositionListener {
                         stepsE -= stepECalculated;
                     }
                     //update path
-                    userPath = userPath(user, destination);
-                    originChanged(mapView, user);
-                    mapView.setUserPath(userPath);
+                    if(userPath.get(1).x ==user.x &&userPath.get(1).y ==user.y ) {
+                        userPath.remove(0);
 
+                    }else{
+                        userPath = userPath(user,destination);
+
+                    }
+                    mapView.setUserPath(userPath);
+                    //new userpoint
+                    originChanged(mapView, user);
+
+                    //Generate instructions
+                    if(user.x==destination.x && user.y==destination.y){
+                        instructionsViewE.setText("");
+                        instructionsViewN.setText("Destination Reached!");
+                    }else{
+                        setInstructions();
+                    }
 
                     stepView.setText("Steps:" + step);
                     northView.setText("North:" + stepsN);
@@ -203,41 +218,7 @@ class StepDetector implements SensorEventListener, PositionListener {
         }
     }
 
-
-    //Function for generating a userpath given start and end points
-    public List<PointF> userPath(PointF start, PointF end) {
-        List<PointF> userPath = new ArrayList<>();
-        List<InterceptPoint> interceptPoints;
-
-        userPath.add(start);
-        PointF currentPoint = new PointF(start.x, start.y);
-        PointF prevPoint = new PointF(start.x, start.y);
-        //Algorithm for determining path
-        interceptPoints = mapView.map.calculateIntersections(start, end);
-        int counter = 1;
-        while (!interceptPoints.isEmpty()) {
-            prevPoint.set(currentPoint.x, currentPoint.y);
-            currentPoint.set(prevPoint.x + 1, prevPoint.y);
-            if (!mapView.map.calculateIntersections(prevPoint, currentPoint).isEmpty()) {
-                currentPoint.set(prevPoint.x, prevPoint.y + 1);
-                if (!mapView.map.calculateIntersections(prevPoint, currentPoint).isEmpty()) {
-                    currentPoint.set(prevPoint.x, prevPoint.y);
-                }
-            }
-            System.out.println("x: " + currentPoint.x + " y: " + currentPoint.y);
-            userPath.add(new PointF(currentPoint.x, currentPoint.y));
-            interceptPoints = mapView.map.calculateIntersections(currentPoint, end);
-            counter++;
-            if (counter > 50) {
-                break;
-            }
-        }
-
-
-        userPath.add(end);
-
-
-        //Generate instructions
+    public void setInstructions(){
         PointF currentp, nextp;
         float Nstep, Estep;
         currentp = userPath.get(0);
@@ -258,6 +239,49 @@ class StepDetector implements SensorEventListener, PositionListener {
         } else {
             instructionsViewE.setText("");
         }
+    }
+    //Function for generating a userpath given start and end points
+    public List<PointF> userPath(PointF start, PointF end) {
+        List<PointF> userPath = new ArrayList<>();
+        List<InterceptPoint> interceptPoints;
+
+        userPath.add(start);
+        PointF currentPoint = new PointF(start.x, start.y);
+        PointF prevPoint = new PointF(start.x, start.y);
+        //Algorithm for determining path
+        interceptPoints = mapView.map.calculateIntersections(start, end);
+        int counter = 1;
+        int stepx =(int)((end.x-start.x)/(Math.abs(end.x-start.x)));
+        int stepy =1;
+        while (!interceptPoints.isEmpty()) {
+            prevPoint.set(currentPoint.x, currentPoint.y);
+            currentPoint.set(prevPoint.x + stepx, prevPoint.y);
+            if (!mapView.map.calculateIntersections(prevPoint, currentPoint).isEmpty()) {
+
+                currentPoint.set(prevPoint.x, prevPoint.y + stepy);
+                if (!mapView.map.calculateIntersections(prevPoint, currentPoint).isEmpty()) {
+                    currentPoint.set(prevPoint.x, prevPoint.y);
+                    stepy*=-1;
+
+                }
+            }
+            System.out.println("x: " + currentPoint.x + " y: " + currentPoint.y);
+            if(currentPoint.x != prevPoint.x || currentPoint.y != prevPoint.y) {
+                userPath.add(new PointF(currentPoint.x, currentPoint.y));
+            }
+
+            interceptPoints = mapView.map.calculateIntersections(currentPoint, end);
+            counter++;
+            if (counter > 400) {
+                break;
+            }
+        }
+
+
+        userPath.add(end);
+
+
+
 
         System.out.println(userPath.size());
         return userPath;
