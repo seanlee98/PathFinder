@@ -4,78 +4,30 @@
     api-level="23"
     density="xxhdpi"
     format="7"
-    timestamp="9494006514864"
-    token="-5648605537400057583"
-    verifier="COMPATIBLE" >
+    timestamp="74748060372554"
+    token="-1007781951707339936" >
 
     <task
         name="javac"
-        duration="358" />
+        duration="195" />
     <task
         name="instant-run-dex"
-        duration="1598" />
+        duration="0" />
     <task
         name="instant-run-transform"
-        duration="130" />
+        duration="54" />
     <task
         name="verifier"
-        duration="9" />
+        duration="4" />
 
     <artifact
-        location="C:\Users\Jose\Desktop\ECE\ECE155\Lab4updated\app\build\intermediates\reload-dex\debug\classes.dex"
-        type="RELOAD_DEX" />
+        location="C:\Users\Sean\Documents\UWaterloo\1B\ece155-master\Lab4\app\build\outputs\apk\app-debug.apk"
+        type="MAIN" />
 
-    <build timestamp="8401227310768" >
+    <build timestamp="74748060372554" >
         <artifact
-            location="C:\Users\Jose\Desktop\ECE\ECE155\Lab4updated\app\build\outputs\apk\app-debug.apk"
+            location="C:\Users\Sean\Documents\UWaterloo\1B\ece155-master\Lab4\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
-    </build>
-    <build timestamp="8985190132337" >
-        <artifact
-            location="C:\Users\Jose\Desktop\ECE\ECE155\Lab4updated\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_8\classes.dex"
-            type="DEX" />
-    </build>
-    <build
-        timestamp="9028332033981"
-        verifier="COMPATIBLE" >
-        <artifact
-            location="C:\Users\Jose\Desktop\ECE\ECE155\Lab4updated\app\build\intermediates\builds\debug\9028332033981\classes.dex"
-            type="RELOAD_DEX" />
-    </build>
-    <build
-        timestamp="9074495524826"
-        verifier="COMPATIBLE" >
-        <artifact
-            location="C:\Users\Jose\Desktop\ECE\ECE155\Lab4updated\app\build\intermediates\builds\debug\9074495524826\classes.dex"
-            type="RELOAD_DEX" />
-    </build>
-    <build
-        timestamp="9176810321402"
-        verifier="COMPATIBLE" >
-        <artifact
-            location="C:\Users\Jose\Desktop\ECE\ECE155\Lab4updated\app\build\intermediates\builds\debug\9176810321402\classes.dex"
-            type="RELOAD_DEX" />
-    </build>
-    <build
-        timestamp="9214770466718"
-        verifier="COMPATIBLE" >
-        <artifact
-            location="C:\Users\Jose\Desktop\ECE\ECE155\Lab4updated\app\build\intermediates\builds\debug\9214770466718\classes.dex"
-            type="RELOAD_DEX" />
-    </build>
-    <build
-        timestamp="9356671554454"
-        verifier="COMPATIBLE" >
-        <artifact
-            location="C:\Users\Jose\Desktop\ECE\ECE155\Lab4updated\app\build\intermediates\builds\debug\9356671554454\classes.dex"
-            type="RELOAD_DEX" />
-    </build>
-    <build
-        timestamp="9494006514864"
-        verifier="COMPATIBLE" >
-        <artifact
-            location="C:\Users\Jose\Desktop\ECE\ECE155\Lab4updated\app\build\intermediates\reload-dex\debug\classes.dex"
-            type="RELOAD_DEX" />
     </build>
 
 </instant-run>
